@@ -41,22 +41,27 @@ export function ContextBar({ onCommandPaletteOpen }: ContextBarProps) {
   const { setOperationsPanelExpanded } = useLayoutStore()
 
   const segments = location.pathname.split('/').filter(Boolean)
+  const isHome = location.pathname === '/'
 
   return (
     <div className="h-12 flex-shrink-0 border-b border-border-default bg-bg-secondary flex items-center px-4 gap-4">
       {/* Breadcrumb */}
       <div className="flex items-center gap-1 text-[13px] min-w-0 flex-1">
-        {segments.map((seg, i) => (
-          <span key={i} className="flex items-center gap-1 min-w-0">
-            {i > 0 && <ChevronRight size={12} className="text-text-muted flex-shrink-0" />}
-            <span className={cn(
-              'truncate',
-              i === segments.length - 1 ? 'text-text-primary font-medium' : 'text-text-muted'
-            )}>
-              {breadcrumbMap[seg] || seg}
+        {isHome ? (
+          <span className="text-text-primary font-medium">Home</span>
+        ) : (
+          segments.map((seg, i) => (
+            <span key={i} className="flex items-center gap-1 min-w-0">
+              {i > 0 && <ChevronRight size={12} className="text-text-muted flex-shrink-0" />}
+              <span className={cn(
+                'truncate',
+                i === segments.length - 1 ? 'text-text-primary font-medium' : 'text-text-muted'
+              )}>
+                {breadcrumbMap[seg] || seg}
+              </span>
             </span>
-          </span>
-        ))}
+          ))
+        )}
       </div>
 
       {/* Command palette trigger */}

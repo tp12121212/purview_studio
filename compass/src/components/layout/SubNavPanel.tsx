@@ -45,8 +45,11 @@ export function SubNavPanel() {
   const navigate = useNavigate()
   const { subNavCollapsed, subNavPinned, setSubNavCollapsed, setSubNavPinned } = useLayoutStore()
 
-  const section = location.pathname.split('/')[1] || 'dlp'
-  const nav = sectionNav[section] || sectionNav.dlp
+  const section = location.pathname.split('/')[1] || ''
+  const nav = sectionNav[section]
+
+  // Hide sub-nav on the home page
+  if (!nav) return null
 
   if (subNavCollapsed) {
     return (

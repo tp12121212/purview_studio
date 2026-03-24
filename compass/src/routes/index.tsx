@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 import { AppLayout } from '@/components/layout/AppLayout'
 import { Skeleton } from '@/components/ui/Skeleton'
 
@@ -17,6 +17,7 @@ function PageLoader() {
   )
 }
 
+const Home = lazy(() => import('./home'))
 const DlpPolicies = lazy(() => import('./dlp/policies'))
 const PolicyDetail = lazy(() => import('./dlp/policy-detail'))
 const DlpRules = lazy(() => import('./dlp/rules'))
@@ -34,7 +35,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: <AppLayout />,
     children: [
-      { index: true, element: <Navigate to="/dlp/policies" replace /> },
+      { index: true, element: <Suspense fallback={<PageLoader />}><Home /></Suspense> },
       {
         path: 'dlp/policies',
         element: <Suspense fallback={<PageLoader />}><DlpPolicies /></Suspense>,

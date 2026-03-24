@@ -1,11 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, Shield, Tags, Activity, Settings, PanelLeftClose, PanelLeft } from 'lucide-react'
+import { LayoutDashboard, Shield, Tags, Activity, Settings, PanelLeftClose, PanelLeft, Home } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { useTenantStore } from '@/stores/useTenantStore'
 import { useLayoutStore } from '@/stores/useLayoutStore'
 
 const navItems = [
+  { id: 'home', label: 'Home', icon: Home, path: '/' },
   { id: 'dlp', label: 'Data Loss Prevention', icon: Shield, path: '/dlp/policies' },
   { id: 'labels', label: 'Sensitivity Labels', icon: Tags, path: '/labels/sensitivity' },
   { id: 'audit', label: 'Audit', icon: Activity, path: '/audit/activity' },
@@ -20,6 +21,7 @@ export function NavigationRail() {
   const currentTenant = tenants.find((t) => t.id === currentTenantId)
 
   function isActive(path: string) {
+    if (path === '/') return location.pathname === '/'
     const section = path.split('/')[1]
     return location.pathname.startsWith(`/${section}`)
   }
@@ -51,7 +53,7 @@ export function NavigationRail() {
       {/* Logo / Home */}
       <div className={cn('flex items-center mb-2', expanded ? 'gap-3 px-1' : 'justify-center')}>
         <button
-          onClick={() => navigate('/dlp/policies')}
+          onClick={() => navigate('/')}
           className="w-8 h-8 rounded-[4px] flex items-center justify-center text-accent-primary hover:bg-hover focus-visible:outline-2 focus-visible:outline-focus-ring flex-shrink-0"
         >
           <LayoutDashboard size={20} />
