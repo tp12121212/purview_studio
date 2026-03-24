@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Compass Dev Server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "compass"],
+      "port": 5173
+    },
+    {
+      "name": "Compass Preview Server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "preview", "--prefix", "compass"],
+      "port": 4173
+    }
+  ]
+}
